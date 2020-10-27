@@ -77,15 +77,14 @@ class MainApp(QMainWindow, main_window.Ui_MainWindow):
             current_lin_att_fact = 0.6 * current_number_density * (current_element.Incxs + abs_x_section)
             lin_att_total += current_lin_att_fact
 
-            self.tableOutput.setItem(row, 0, QTableWidgetItem(current_element.isotope))
-            self.tableOutput.setItem(row, 1, QTableWidgetItem("{:d}".format(current_element.multiplier)))
-            self.tableOutput.setItem(row, 2, QTableWidgetItem("{:f}".format(mendelem.atomic_weight)))
-            self.tableOutput.setItem(row, 3, QTableWidgetItem("{:f}".format(current_mass_fraction)))
-            self.tableOutput.setItem(row, 4, QTableWidgetItem("{:f}".format(current_number_density)))
-            self.tableOutput.setItem(row, 5, QTableWidgetItem("{:f}".format(current_element.Cohxs)))
-            self.tableOutput.setItem(row, 6, QTableWidgetItem("{:f}".format(current_element.Incxs)))
-            self.tableOutput.setItem(row, 7, QTableWidgetItem("{:f}".format(abs_x_section)))
-            self.tableOutput.setItem(row, 8, QTableWidgetItem("{:f}".format(current_lin_att_fact)))
+            table_outputs = [current_element.isotope, "{:d}".format(current_element.multiplier),
+                             "{:f}".format(mendelem.atomic_weight), "{:f}".format(current_mass_fraction),
+                             "{:f}".format(current_number_density), "{:f}".format(current_element.Cohxs),
+                             "{:f}".format(current_element.Incxs), "{:f}".format(abs_x_section),
+                             "{:f}".format(current_lin_att_fact)]
+
+            for column, data in enumerate(table_outputs):
+                self.tableOutput.setItem(row, column, QTableWidgetItem(data))
             self.tableOutput.resizeColumnsToContents()
             self.tableOutput.resizeRowsToContents()
 
