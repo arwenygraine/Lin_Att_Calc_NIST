@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QHeaderView
 import sys
-import periodictable
 from mendeleev import element
 
 from windows import main_window
