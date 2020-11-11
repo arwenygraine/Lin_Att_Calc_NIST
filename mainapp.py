@@ -58,7 +58,7 @@ class MainApp(QMainWindow, main_window.Ui_MainWindow):
         wavelength = self.wavelength_input.value()
         list_of_instances = []
         total_mass = 0
-        errorbool = False
+        passed = 0
         for row in range(numRows):
             elemInputItem = self.tableInput.item(row, 0)
             formulaUnitInputItem = self.tableInput.item(row, 1)
@@ -71,10 +71,12 @@ class MainApp(QMainWindow, main_window.Ui_MainWindow):
                     elem_instance = ElementValues(elemInput, self.scattering_dict, formulaUnitInput)
                     list_of_instances.append(elem_instance)
                     total_mass += (formulaUnitInput * element(elem_instance.element).atomic_weight)
+                    passed += 1
                 else:
+                    print("else raised")
                     self.totalAttBox.setText("ERROR: item not in dictionary")
             except:         # add TypeError??
-                errorbool = True
+                print("except raised")
                 self.totalAttBox.setText("ERROR: input elements")
 
         self.tableOutput.setRowCount(len(list_of_instances))
@@ -103,7 +105,8 @@ class MainApp(QMainWindow, main_window.Ui_MainWindow):
             self.tableOutput.resizeColumnsToContents()
             self.tableOutput.resizeRowsToContents()
 
-        if errorbool is False:
+        print(passed)
+        if passed == numRows:
             self.totalAttBox.setText("{:f}".format(lin_att_total))
         else:
             pass
